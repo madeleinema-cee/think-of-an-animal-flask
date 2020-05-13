@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="p-5">
+        {{question}}
+        <br>
+        <a href="{{ url_for('answer', answer=True) }}">Yes</a>|<a href="{{ url_for('answer', answer=False) }}">No</a>
+    </div>
+
+{% endblock %}
