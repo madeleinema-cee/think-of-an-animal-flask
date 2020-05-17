@@ -1,4 +1,4 @@
-from flask import render_template, url_for
+from flask import render_template, url_for, redirect
 from flaskgame import app
 from game import Game
 
@@ -16,5 +16,15 @@ def question():
     q = None
     if g.class_type is None:
         q, v = g.generate_random_class_type_question()
-
     return render_template('question.html', question=q)
+
+
+@app.route('/answer/<b>')
+def answer(b):
+    a = None
+    b = g.handle_answer(answer)
+    if b == 'True':
+        a = g.viable_questions()
+    else:
+        return redirect(url_for('question'))
+    return render_template('answer.html', answer=a)

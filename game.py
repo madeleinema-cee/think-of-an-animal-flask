@@ -8,8 +8,7 @@ import random
 
 from db import Db
 from questions import questions
-from flask import app
-from flask import render_template
+
 
 class Game:
     """
@@ -31,76 +30,84 @@ class Game:
         the number of the round of the game (default is 0)
     """
     def __init__(self):
-        self.sys = sys
-        self.class_type = None
         self.db = Db('animals.db')
         self.animal_data = None
         self.viable_questions = None
-        self.query = None
+        self.query = 'select * from animals'
         self.rounds = 0
         self.question = None
 
     def main(self):
         """platform to sequentially call class methods."""
-        self.identify_class_type()
+
         while self.rounds < 10:
+            print(self.query)
             self.retrieve_animal_data()
-            if len(self.animal_data) == 1:
-                break
-            # print(len(self.animal_data))
-            # print(f'round {self.rounds}')
             self.ask_question()
             self.rounds += 1
+
+            if len(self.animal_data) == 1:
+                break
+
         self.guess_animal()
 
-    @staticmethod
-    def format_question(question):
-        """append (yes/no) to a string
+    def retrieve_animal_data(self):
+        """retrieve the animal data in a array from the result of the query generated from identify_class_type
 
-        Argument
-        --------
-        question: str
-            question in questions.py
-        """
-        return f'{question} (yes/no): '
+        Attribute
+        ---------
 
-    def guess_animal(self):
-        """guess the animal and analyze the answer
+        animal_data: list
+            a list of dictionaries of animals
         """
-        question = ''
-        animal = random.choice(self.animal_data)
-        name = animal['animal_name']
-        question = f'is {name} your animal?'
-        animal_answer = input(self.format_question(question))
-        animal_answer = self.validate_answer(question, animal_answer)
-        self.rounds += 1
-        if animal_answer == 'yes':
-            print("I won!")
-            self.sys.exit()
-        else:
-            if self.rounds < 10 and len(self.animal_data) > 1:
-                self.animal_data.remove(animal)
-                self.guess_animal()
+
+        data = self.db.fetchall(self.query)
+        self.animal_data = data
+
+    def ask_question(self):
+        """use the viable_questions returned from find_viable_question
+        to run a query regarding the viable question in the database.
+        """
+
+        viable_questions = self.find_viable_questions()
+        if viable_questions:
+            question_key = random.choice(viable_questions)
+            if question_key == 'class_type':
+                self.identify_class_type()
             else:
-                print("I lost!")
-        return question
-
-    def generate_random_class_type_question(self):
-        """ generate random question about animal class by using the value in questions.py
-        return value and question"""
-        values = []
-        for q in questions['class_type']:
-            if not q['asked']:
-                values.append(q['value'])
-        if values:
-            random_num = random.choice(values)
-            for q in questions['class_type']:
-                if random_num == q['value']:
-                    q['asked'] = True
-                    # print(q['question'])
-                    return q['question'], q['value']
+                question = questions[question_key]['question']
+                answer = self.validate_answer(question, input(self.format_question(question)))
+                answer = self.convert_answer(answer)
+                self.modify_query(question_key, answer)
         else:
-            print('No class type')
+            # TODO exit for loop in main!!!!!
+            self.guess_animal()
+
+    def find_viable_questions(self):
+        """find viable questions based on the animal feature keys of the array such as ‘hair’.
+        If all animal have the same feature, the question about that feature is not viable.
+
+        Returns
+        ------
+        viable_questions: list
+            a list of dictionaries' keys where at lease one animal has a distinct value
+
+        # TODO: legs question.
+        """
+
+        viable_questions = []
+        keys = list(self.animal_data[0].keys())
+        keys.remove('id')
+        keys.remove('animal_name')
+        keys.remove('legs')
+
+        for key in keys:
+            for animal in self.animal_data:
+                if animal[key] != self.animal_data[0][key]:
+                    viable_questions.append(key)
+        viable_questions = list(set(viable_questions))
+
+        return viable_questions
 
     def identify_class_type(self):
         """identify the class type of the animal by asking question and validate the answer,
@@ -111,15 +118,66 @@ class Game:
         class_type: int
             the number of the animal's class type (mammal is 1, fish is 2)
         """
-        while self.class_type is None:
-            question, value = self.generate_random_class_type_question()
-            answer = input(self.format_question(question))
-            answer = self.validate_answer(question, answer)
-            self.rounds += 1
-            if answer == 'yes':
-                self.class_type = value
-                self.query = f'select * from animals where class_type = {self.class_type}'
 
+        question, value = self.generate_random_class_type_question()
+        answer = input(self.format_question(question))
+        answer = self.validate_answer(question, answer)
+
+        if answer == 'yes':
+            questions['class_type']['viable'] = False
+            self.modify_query('class_type', value)
+        else:
+            self.modify_query('class_type', value, conditional=False)
+
+    def generate_random_class_type_question(self):
+        """generate random question about animal class by using the value in questions.py
+        return value and question"""
+
+        viable_questions = self.identify_viable_class_type_questions()
+        class_type_key = random.choice(viable_questions)
+        class_type = questions['class_type']['class_type_questions'][class_type_key]
+        class_type['viable'] = False
+
+        return class_type['question'], class_type['value']
+
+    def identify_viable_class_type_questions(self):
+        viable_questions = []
+        class_types = questions['class_type']['class_type_questions']
+        for key, value in class_types.items():
+            if value['viable']:
+                viable_questions.append(key)
+        return viable_questions
+
+    @staticmethod
+    def format_question(question):
+        """append (yes/no) to a string
+
+        Argument
+        --------
+        question: str
+            question in questions.py
+        """
+
+        return f'{question} (yes/no): '
+
+    def guess_animal(self):
+        """guess the animal and analyze the answer"""
+
+        print(self.animal_data)
+        animal = random.choice(self.animal_data)
+        name = animal['animal_name']
+        question = f'is {name} your animal?'
+        animal_answer = input(self.format_question(question))
+        animal_answer = self.validate_answer(question, animal_answer)
+        self.rounds += 1
+        if animal_answer == 'yes':
+            print("I won!")
+        else:
+            if self.rounds < 10 and len(self.animal_data) > 1:
+                self.animal_data.remove(animal)
+                self.guess_animal()
+            else:
+                print("I lost!")
 
     def validate_answer(self, question, answer):
         """Validate the answer input by the user. So only ‘yes’ or ‘no’ can be answered.
@@ -140,62 +198,6 @@ class Game:
             self.validate_answer(question, answer)
             return answer
 
-    def retrieve_animal_data(self):
-        """retrieve the animal data in a array from the result of the query generated from identify_class_type
-
-        Attribute
-        ---------
-
-        animal_data: list
-            a list of dictionaries of animals
-        """
-        data = self.db.fetchall(self.query)
-        self.animal_data = data
-
-    def find_viable_questions(self):
-        """find viable questions based on the animal feature keys of the array such as ‘hair’.
-        If all animal have the same feature, the question about that feature is not viable.
-
-        Returns
-        ------
-        viable_questions: list
-            a list of dictionaries' keys where at lease one animal has a distinct value
-
-        # TODO: legs question.
-        """
-        viable_questions = []
-        keys = list(self.animal_data[0].keys())
-        keys.remove('id')
-        keys.remove('animal_name')
-        keys.remove('legs')
-
-        for key in keys:
-            for animal in self.animal_data:
-                if animal[key] != self.animal_data[0][key]:
-                    viable_questions.append(key)
-        viable_questions = list(set(viable_questions))
-        print(viable_questions)
-
-        return viable_questions
-
-
-    def ask_question(self):
-        """use the viable_questions returned from find_viable_question
-        to run a query regarding the viable question in the database.
-        """
-        viable_questions = self.find_viable_questions()
-        if viable_questions:
-            question_key = random.choice(viable_questions)
-            question = questions[question_key][0]['question']
-            answer = self.validate_answer(question, input(self.format_question(question)))
-            answer = self.convert_answer(answer)
-            questions[question_key][0]['asked'] = True
-            questions[question_key][0]['answer'] = answer
-
-            self.query = self.query + f' and {question_key} = {answer}'
-        else:
-            self.guess_animal()
-
     def convert_answer(self, answer):
         """convert the answer from ask_question into values
 
@@ -208,13 +210,15 @@ class Game:
         int
             int 1 or 0
         """
-        if answer == 'yes':
-            return 1
+        return 1 if answer else 0
+
+    def modify_query(self, key, value, conditional=True):
+        if self.rounds == 0:
+            self.query = f'{self.query} where {key} {"=" if conditional else "!="} {value}'
         else:
-            return 0
+            self.query = f'{self.query} and {key} {"=" if conditional else "!="} {value}'
 
-
-
-
-
+if __name__ == '__main__':
+    g = Game()
+    g.main()
 
