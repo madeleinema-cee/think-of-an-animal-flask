@@ -44,7 +44,7 @@ class Game:
             # print(self.query)
             self.retrieve_animal_data()
             viable_questions = self.find_viable_questions()
-
+            print(viable_questions)
             if viable_questions:
                 self.ask_question(viable_questions)
                 if len(self.animal_data) == 1:
@@ -53,7 +53,7 @@ class Game:
                 break
             self.rounds += 1
             print(self.animal_data)
-            print(self.query)
+            # print(self.query)
             # print(self.rounds)
 
         self.guess_animal()
@@ -78,6 +78,8 @@ class Game:
         question_key = random.choice(viable_questions)
         if question_key == 'class_type':
             self.identify_class_type()
+        elif question_key == 'legs':
+            self.identify_legs()
         else:
             question = questions[question_key]['question']
             answer = self.validate_answer(question, input(self.format_question(question)))
@@ -96,22 +98,36 @@ class Game:
         viable_questions: list
             a list of dictionaries' keys where at lease one animal has a distinct value
 
-        # TODO: legs question.
         """
-
         viable_questions = []
         keys = list(self.animal_data[0].keys())
         keys.remove('id')
         keys.remove('animal_name')
-        keys.remove('legs')
 
         for key in keys:
             for animal in self.animal_data:
                 if animal[key] != self.animal_data[0][key]:
                     viable_questions.append(key)
         viable_questions = list(set(viable_questions))
-        # print(viable_questions)
+
         return viable_questions
+
+    def find_viable_class_values(self):
+        class_values = []
+        for animal in self.animal_data:
+            class_values.append(animal['class_type'])
+        class_values = list(set(class_values))
+        print(class_values)
+        return class_values
+
+    def find_viable_leg_values(self):
+        leg_values = []
+        for animal in self.animal_data:
+            leg_values.append(animal['legs'])
+        leg_values = list(set(leg_values))
+        print('this is the leg value')
+        print(leg_values)
+        return leg_values
 
     def identify_class_type(self):
         """identify the class type of the animal by asking question and validate the answer,
@@ -146,10 +162,41 @@ class Game:
 
     def identify_viable_class_type_questions(self):
         viable_questions = []
+        class_values = self.find_viable_class_values()
         class_types = questions['class_type']['class_type_questions']
         for key, value in class_types.items():
-            if value['viable']:
-                viable_questions.append(key)
+            for v in class_values:
+                if value['viable'] and v == value['value']:
+                    viable_questions.append(key)
+        return viable_questions
+
+    def identify_legs(self):
+        question, value = self.generate_random_legs_question()
+        answer = input(self.format_question(question))
+        answer = self.validate_answer(question, answer)
+
+        if answer == 'yes':
+            questions['legs']['viable'] = False
+            self.modify_query('legs', value)
+        else:
+            self.modify_query('legs', value, conditional=False)
+
+    def generate_random_legs_question(self):
+        viable_questions = self.identify_viable_legs_questions()
+        leg_key = random.choice(viable_questions)
+        legs = questions['legs']['leg_questions'][leg_key]
+        legs['viable'] = False
+
+        return legs['question'], legs['value']
+
+    def identify_viable_legs_questions(self):
+        viable_questions = []
+        leg_values = self.find_viable_leg_values()
+        legs = questions['legs']['leg_questions']
+        for key, value in legs.items():
+            for v in leg_values:
+                if value['viable'] and v == value['value']:
+                    viable_questions.append(key)
         return viable_questions
 
     @staticmethod
