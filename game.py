@@ -37,6 +37,13 @@ class Game:
         self.rounds = 0
         self.question = None
 
+    def main_question(self):
+        if self.rounds < 10:
+            self.retrieve_animal_data()
+            viable_questions = self.find_viable_questions()
+            if viable_questions:
+                return viable_questions
+
     def main(self):
         """platform to sequentially call class methods."""
 
@@ -46,7 +53,7 @@ class Game:
             viable_questions = self.find_viable_questions()
             print(viable_questions)
             if viable_questions:
-                self.ask_question(viable_questions)
+                self.ask_question()
                 if len(self.animal_data) == 1:
                     break
             else:
@@ -71,10 +78,12 @@ class Game:
         data = self.db.fetchall(self.query)
         self.animal_data = data
 
-    def ask_question(self, viable_questions):
+    def ask_question(self):
         """use the viable_questions returned from find_viable_question
         to run a query regarding the viable question in the database.
         """
+
+        viable_questions = self.find_viable_questions()
         question_key = random.choice(viable_questions)
         if question_key == 'class_type':
             self.identify_class_type()
@@ -87,6 +96,7 @@ class Game:
             # print('answer-----')
             # print(answer)
             self.modify_query(question_key, answer)
+            return question
 
 
     def find_viable_questions(self):
@@ -148,6 +158,7 @@ class Game:
             self.modify_query('class_type', value)
         else:
             self.modify_query('class_type', value, conditional=False)
+        return question
 
     def generate_random_class_type_question(self):
         """generate random question about animal class by using the value in questions.py
@@ -180,6 +191,7 @@ class Game:
             self.modify_query('legs', value)
         else:
             self.modify_query('legs', value, conditional=False)
+        return question
 
     def generate_random_legs_question(self):
         viable_questions = self.identify_viable_legs_questions()

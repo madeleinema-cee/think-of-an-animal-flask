@@ -6,7 +6,7 @@ class Db:
     A class used to represent database(Db)
     """
     def __init__(self, database):
-        self.conn = sqlite3.connect(database)
+        self.conn = sqlite3.connect(database, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
 
@@ -15,6 +15,7 @@ class Db:
         self.conn.commit()
 
     def fetchall(self, query):
+        self.cursor = self.conn.cursor()
         self.execute(query)
         result = [dict(row) for row in self.cursor.fetchall()]
         return result
