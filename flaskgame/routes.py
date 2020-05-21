@@ -13,9 +13,8 @@ def home():
 
 @app.route('/question')
 def question():
-    q = g.main_question()
 
-    return render_template('question.html', question=q)
+    return render_template('question.html', question=question_key)
 
 
 @app.route('/answer/<b>')

@@ -48,21 +48,20 @@ class Game:
         """platform to sequentially call class methods."""
 
         while self.rounds < 10:
-            # print(self.query)
-            self.retrieve_animal_data()
-            viable_questions = self.find_viable_questions()
+            print(self.query)
+            viable_questions = self.main_question()
             print(viable_questions)
             if viable_questions:
+                # self.answer_question()
                 self.ask_question()
                 if len(self.animal_data) == 1:
                     break
             else:
                 break
             self.rounds += 1
-            print(self.animal_data)
+            # print(self.animal_data)
             # print(self.query)
             # print(self.rounds)
-
         self.guess_animal()
 
     def retrieve_animal_data(self):
@@ -78,6 +77,15 @@ class Game:
         data = self.db.fetchall(self.query)
         self.animal_data = data
 
+    def answer_question(self, question_key):
+        if question_key:
+            question = questions[question_key]['question']
+            answer = self.validate_answer(question, input(self.format_question(question)))
+            answer = self.convert_answer(answer)
+            # print('answer--------')
+            # print(question)
+            self.modify_query(question_key, answer)
+
     def ask_question(self):
         """use the viable_questions returned from find_viable_question
         to run a query regarding the viable question in the database.
@@ -90,14 +98,9 @@ class Game:
         elif question_key == 'legs':
             self.identify_legs()
         else:
-            question = questions[question_key]['question']
-            answer = self.validate_answer(question, input(self.format_question(question)))
-            answer = self.convert_answer(answer)
-            # print('answer-----')
-            # print(answer)
-            self.modify_query(question_key, answer)
-            return question
-
+            print(question_key)
+            self.answer_question(question_key)
+            return question_key
 
     def find_viable_questions(self):
         """find viable questions based on the animal feature keys of the array such as ‘hair’.
@@ -127,7 +130,7 @@ class Game:
         for animal in self.animal_data:
             class_values.append(animal['class_type'])
         class_values = list(set(class_values))
-        print(class_values)
+        # print(class_values)
         return class_values
 
     def find_viable_leg_values(self):
@@ -135,8 +138,6 @@ class Game:
         for animal in self.animal_data:
             leg_values.append(animal['legs'])
         leg_values = list(set(leg_values))
-        print('this is the leg value')
-        print(leg_values)
         return leg_values
 
     def identify_class_type(self):
@@ -158,7 +159,6 @@ class Game:
             self.modify_query('class_type', value)
         else:
             self.modify_query('class_type', value, conditional=False)
-        return question
 
     def generate_random_class_type_question(self):
         """generate random question about animal class by using the value in questions.py
@@ -191,7 +191,6 @@ class Game:
             self.modify_query('legs', value)
         else:
             self.modify_query('legs', value, conditional=False)
-        return question
 
     def generate_random_legs_question(self):
         viable_questions = self.identify_viable_legs_questions()
