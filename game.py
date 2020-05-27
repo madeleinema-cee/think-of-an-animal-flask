@@ -36,6 +36,7 @@ class Game:
         self.query = 'select * from animals'
         self.rounds = 0
         self.question = None
+        self.question_key = None
 
     def main_question(self):
         if self.rounds < 10:
@@ -53,16 +54,44 @@ class Game:
             print(viable_questions)
             if viable_questions:
                 # self.answer_question()
-                self.ask_question()
-                if len(self.animal_data) == 1:
-                    break
-            else:
-                break
+                question_key = self.ask_question()
+                print(question_key)
+                if question_key == ['class_type']:
+                    question, value = self.generate_random_class_type_question()
+                    answer = input(self.format_question(question))
+                    answer = self.validate_answer(question, answer)
+
+                    if answer == 'yes':
+                        questions['class_type']['viable'] = False
+                        self.modify_query('class_type', value)
+                    else:
+                        self.modify_query('class_type', value, conditional=False)
+                    return question
+                elif question_key == ['legs']:
+                    question, value = self.generate_random_legs_question()
+                    answer = input(self.format_question(question))
+                    answer = self.validate_answer(question, answer)
+
+                    if answer == 'yes':
+                        questions['legs']['viable'] = False
+                        self.modify_query('legs', value)
+                    else:
+                        self.modify_query('legs', value, conditional=False)
+                    return question
+                else:
+                    question = self.answer_question(question_key)
+                    return question
+
+
+    def ready_to_guess_animal(self):
+        while self.rounds < 10:
+            self.main()
             self.rounds += 1
-            # print(self.animal_data)
-            # print(self.query)
-            # print(self.rounds)
+            if len(self.animal_data) == 1:
+                break
         self.guess_animal()
+
+
 
     def retrieve_animal_data(self):
         """retrieve the animal data in a array from the result of the query generated from identify_class_type
@@ -78,13 +107,14 @@ class Game:
         self.animal_data = data
 
     def answer_question(self, question_key):
-        if question_key:
-            question = questions[question_key]['question']
-            answer = self.validate_answer(question, input(self.format_question(question)))
-            answer = self.convert_answer(answer)
-            # print('answer--------')
-            # print(question)
-            self.modify_query(question_key, answer)
+        question = questions[question_key]['question']
+        answer = self.validate_answer(question, input(self.format_question(question)))
+        answer = self.convert_answer(answer)
+        print('answer--------')
+        print(question)
+        self.modify_query(question_key, answer)
+        return question
+
 
     def ask_question(self):
         """use the viable_questions returned from find_viable_question
@@ -93,14 +123,8 @@ class Game:
 
         viable_questions = self.find_viable_questions()
         question_key = random.choice(viable_questions)
-        if question_key == 'class_type':
-            self.identify_class_type()
-        elif question_key == 'legs':
-            self.identify_legs()
-        else:
-            print(question_key)
-            self.answer_question(question_key)
-            return question_key
+        return question_key
+
 
     def find_viable_questions(self):
         """find viable questions based on the animal feature keys of the array such as ‘hair’.
@@ -140,25 +164,17 @@ class Game:
         leg_values = list(set(leg_values))
         return leg_values
 
-    def identify_class_type(self):
-        """identify the class type of the animal by asking question and validate the answer,
-        run the query in the database using the value based on answer returned from validate_answer.
 
-        Attribute
-        ---------
-        class_type: int
-            the number of the animal's class type (mammal is 1, fish is 2)
-        """
+        # """identify the class type of the animal by asking question and validate the answer,
+        # run the query in the database using the value based on answer returned from validate_answer.
+        #
+        # Attribute
+        # ---------
+        # class_type: int
+        #     the number of the animal's class type (mammal is 1, fish is 2)
+        # """
 
-        question, value = self.generate_random_class_type_question()
-        answer = input(self.format_question(question))
-        answer = self.validate_answer(question, answer)
 
-        if answer == 'yes':
-            questions['class_type']['viable'] = False
-            self.modify_query('class_type', value)
-        else:
-            self.modify_query('class_type', value, conditional=False)
 
     def generate_random_class_type_question(self):
         """generate random question about animal class by using the value in questions.py
@@ -181,16 +197,6 @@ class Game:
                     viable_questions.append(key)
         return viable_questions
 
-    def identify_legs(self):
-        question, value = self.generate_random_legs_question()
-        answer = input(self.format_question(question))
-        answer = self.validate_answer(question, answer)
-
-        if answer == 'yes':
-            questions['legs']['viable'] = False
-            self.modify_query('legs', value)
-        else:
-            self.modify_query('legs', value, conditional=False)
 
     def generate_random_legs_question(self):
         viable_questions = self.identify_viable_legs_questions()
@@ -282,5 +288,5 @@ class Game:
 
 if __name__ == '__main__':
     g = Game()
-    g.main()
+    g.ready_to_guess_animal()
 

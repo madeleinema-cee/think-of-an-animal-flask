@@ -13,7 +13,7 @@ def home():
 
 @app.route('/question')
 def question():
-
+    question_key = g.main()
     return render_template('question.html', question=question_key)
 
 
