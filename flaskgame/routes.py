@@ -13,16 +13,17 @@ def home():
 
 @app.route('/question')
 def question():
-    question_key = g.main()
-    return render_template('question.html', question=question_key)
+    question = g.question()
+
+    return render_template('question.html', question=question)
 
 
 @app.route('/answer/<b>')
 def answer(b):
-#     a = None
-#     b = g.handle_answer(answer)
-#     if b == 'True':
-#         a = g.viable_questions()
-#     else:
-#         return redirect(url_for('question'))
+    # b = g.handle_answer(b)
+    # if b == 'True':
+    #     return 'True', redirect(url_for('question'))
+    # else:
+    #     return redirect(url_for('question'))
     return render_template('answer.html')
+

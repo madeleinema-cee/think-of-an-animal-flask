@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="p-5">
-        {{question}}{{rounds}}
+        {{question}}
         <br>
         <a href="{{ url_for('answer', b=True) }}">Yes</a>|
         <a href="{{ url_for('answer', b=False) }}">No</a>
