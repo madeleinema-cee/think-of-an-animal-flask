@@ -68,7 +68,7 @@ questions = {
                 'viable': True
             },
             '8legs': {
-                'question': 'Does your animal have 8 legs?',
+                'question': 'Does your animal have eight legs?',
                 'value': 8,
                 'viable': True
             }

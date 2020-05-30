@@ -9,22 +9,17 @@ class Game:
         self.animal_data = None
         self.db = Db('animals.db')
         self.query = 'select * from animals'
+        self.question = None
 
-    def question(self):
+    def generate_question(self):
         viable_questions = self.find_viable_question()
         question_key = random.choice(viable_questions)
         if question_key == 'class_type':
-            class_question, leg_question = self.identify_viable_class_types_or_legs()
-            print(class_question)
-            return class_question
-        if question_key == 'legs':
-            class_question, leg_question = self.identify_viable_class_types_or_legs()
-            print(leg_question)
-            return leg_question
+            self.question = self.identify_viable_class_types()
+        elif question_key == 'legs':
+            self.question = self.identify_viable_legs()
         else:
-            question = questions[question_key]['question']
-            print(question)
-            return question
+            self.question = questions[question_key]['question']
 
     def find_viable_question(self):
         data = self.db.fetchall(query=self.query)
@@ -53,27 +48,42 @@ class Game:
         leg_values = list(set(leg_values))
         return class_values, leg_values
 
-    def identify_viable_class_types_or_legs(self):
+    def identify_viable_class_types(self):
         viable_class_types= []
-        viable_legs= []
         class_values, leg_values = self.find_viable_class_or_leg_values()
         class_types = questions['class_type']['class_type_questions']
-        legs = questions['legs']['leg_questions']
+
         for key, value in class_types.items():
             for v in class_values:
                 if value['viable'] and v == value['value']:
                     viable_class_types.append(key)
+
+        class_type_key = random.choice(viable_class_types)
+        class_type = questions['class_type']['class_type_questions'][class_type_key]
+        if class_type['value']:
+            class_question = class_type['question']
+            class_type['value'] = False
+
+            return class_question
+
+    def identify_viable_legs(self):
+        viable_legs = []
+        class_values, leg_values = self.find_viable_class_or_leg_values()
+        legs = questions['legs']['leg_questions']
+
         for key, value in legs.items():
             for v in leg_values:
                 if value['viable'] and v == value['value']:
                     viable_legs.append(key)
-        class_type = random.choice(viable_class_types)
-        class_question = questions['class_type']['class_type_questions'][class_type]['question']
 
-        leg = random.choice(viable_legs)
-        leg_question = questions['legs']['leg_questions'][leg]['question']
+        leg_key = random.choice(viable_legs)
+        leg_type = questions['legs']['leg_questions'][leg_key]
+        if leg_type['value']:
+            leg_question = leg_type['question']
+            leg_type['value'] = False
 
-        return class_question, leg_question
+            return leg_question
+
 
 # if __name__ == '__main__':
 #     g = Game()
