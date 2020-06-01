@@ -51,7 +51,6 @@ class Game:
             viable_questions = self.main_question()
             print(viable_questions)
             if viable_questions:
-                # self.answer_question()
                 self.ask_question()
                 if len(self.animal_data) == 1:
                     break
