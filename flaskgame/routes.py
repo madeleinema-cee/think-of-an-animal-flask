@@ -18,7 +18,7 @@ def question():
         return render_template('question.html', question=q, data=g.animal_data,
                            r=g.rounds, query=g.query, viable_q=g.viable_questions)
     else:
-        return redirect(url_for('guess', user_input=True or False))
+        return redirect(url_for('guess'))
 
 
 @app.route('/answer/<user_input>')
@@ -28,21 +28,29 @@ def answer(user_input):
             g.handle_answer(user_input)
             return redirect(url_for('question'))
         else:
-            return redirect(url_for('guess', user_input=True or False))
+            return redirect(url_for('guess'))
     else:
-        return redirect(url_for('guess', user_input=True or False))
+        return redirect(url_for('guess'))
 
 
-@app.route('/guess/<user_input>')
-def guess(user_input):
+@app.route('/guess')
+def guess():
     question = g.guess_animal()
-    if user_input == 'True':
-        print('I won')
-
-    if user_input == 'False':
-        g.rounds += 1
-        g.animal_data.remove(g.animal)
-        question = g.guess_animal()
     return render_template('guess.html', question=question, r=g.rounds)
 
 
+@app.route('/result/<user_input>')
+def result(user_input):
+    if g.rounds < 10:
+        if user_input == 'True':
+            return render_template('result.html', content='I won!')
+        else:
+            g.rounds += 1
+            if len(g.animal_data) > 1:
+                g.animal_data.remove(g.animal)
+                return redirect(url_for('guess'))
+            else:
+                return render_template('result.html', content='I lost! What is your animal?')
+    else:
+        return render_template('result.html', content='I lost! What is your animal?')
+    

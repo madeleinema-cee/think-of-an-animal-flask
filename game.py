@@ -13,6 +13,7 @@ class Game:
         self.question_key = None
         self.value = None
         self.viable_questions = None
+        self.animal = None
 
     def generate_question(self):
         self.viable_questions = self.find_viable_question()
@@ -33,19 +34,17 @@ class Game:
     def guess_animal(self):
         if len(self.animal_data) == 1:
             self.animal = random.choice(self.animal_data)
-            print(self.animal_data)
             name = self.animal['animal_name']
             print(name)
             question = f'is {name} your animal?'
             return question
         else:
             self.animal = random.choice(self.animal_data)
-            print(self.animal_data)
             name = self.animal['animal_name']
             print(name)
             question = f'is {name} your animal?'
-
             return question
+
 
 
 
