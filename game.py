@@ -12,33 +12,47 @@ class Game:
         self.rounds = 0
         self.question_key = None
         self.value = None
-
-    def main(self):
-        if self.rounds < 10:
-            viable_questions = self.find_viable_question()
-            print(viable_questions)
-            if viable_questions:
-                self.generate_question()
-        self.rounds += 1
-        print(self.rounds)
+        self.viable_questions = None
 
     def generate_question(self):
-        viable_questions = self.find_viable_question()
-        self.question_key = random.choice(viable_questions)
-        print(self.question_key)
-        if self.question_key == 'class_type':
-            q = self.identify_viable_class_types()
-            return q
-        elif self.question_key == 'legs':
-            q = self.identify_viable_legs()
-            return q
+        self.viable_questions = self.find_viable_question()
+        if self.viable_questions:
+            self.question_key = random.choice(self.viable_questions)
+            print(self.question_key)
+            if self.question_key == 'class_type':
+                q = self.identify_viable_class_types()
+                return q
+            elif self.question_key == 'legs':
+                q = self.identify_viable_legs()
+                return q
+            else:
+                return questions[self.question_key]['question']
         else:
-            return questions[self.question_key]['question']
+            self.guess_animal()
+
+    def guess_animal(self):
+        if len(self.animal_data) == 1:
+            self.animal = random.choice(self.animal_data)
+            print(self.animal_data)
+            name = self.animal['animal_name']
+            print(name)
+            question = f'is {name} your animal?'
+            return question
+        else:
+            self.animal = random.choice(self.animal_data)
+            print(self.animal_data)
+            name = self.animal['animal_name']
+            print(name)
+            question = f'is {name} your animal?'
+
+            return question
+
+
 
     def find_viable_question(self):
         data = self.db.fetchall(query=self.query)
         self.animal_data = data
-        viable_questions = []
+        self.viable_questions = []
         keys = list(self.animal_data[0].keys())
         keys.remove('id')
         keys.remove('animal_name')
@@ -46,9 +60,9 @@ class Game:
         for key in keys:
             for animal in self.animal_data:
                 if animal[key] != self.animal_data[0][key]:
-                    viable_questions.append(key)
+                    self.viable_questions.append(key)
 
-        viable_questions = list(set(viable_questions))
+        viable_questions = list(set(self.viable_questions))
 
         return viable_questions
 
@@ -126,4 +140,5 @@ class Game:
 
 # if __name__ == '__main__':
 #     g = Game()
-#     g.main()
+#     g.generate_question()
+#     g.guess_animal()

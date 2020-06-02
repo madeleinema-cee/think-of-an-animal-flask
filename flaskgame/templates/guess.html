@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">round: {{r}}</div>
+            <div class="col-md-4">
+
+                    {{question}}
+            </div>
+            <a href="{{ url_for('guess', user_input=True) }}">Yes</a>|
+            <a href="{{ url_for('guess', user_input=False) }}">No</a>
+        </div>
+    </div>
+
+{% endblock %}
