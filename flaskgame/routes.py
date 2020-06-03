@@ -53,4 +53,3 @@ def result(user_input):
                 return render_template('result.html', content='I lost! What is your animal?')
     else:
         return render_template('result.html', content='I lost! What is your animal?')
-    

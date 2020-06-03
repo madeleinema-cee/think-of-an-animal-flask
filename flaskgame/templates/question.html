@@ -1,28 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-
-    <div class="p-5">
-        {{question}}
-        <br>
-        <a href="{{ url_for('answer', user_input=True) }}">Yes</a>|
-        <a href="{{ url_for('answer', user_input=False) }}">No</a>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">round: {{r}}</div>
-            <div class="col-md-4">
-
-                    {% for d in data %}
-                        <br>{{d['animal_name']}}
-                    {% endfor %}
-
-            </div>
-            <div class="col-md-4">{{query}}</div>
-            <div class="col-md-4">{{viable_q}}</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">Round: {{r}}</div>
+        <div class="box bs2">
+            {{question}}
         </div>
-
-
+        <div class="answer-section">
+            <a class="btn btn-section" href="{{ url_for('answer', user_input=True) }}">Yes</a>
+            <a class="btn btn-section" href="{{ url_for('answer', user_input=False) }}">No</a>
+        </div>
     </div>
-
+</div>
 {% endblock %}

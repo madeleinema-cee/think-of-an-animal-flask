@@ -1,17 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-
-
     <div class="container">
         <div class="row">
-            <div class="col-md-4">round: {{r}}</div>
-            <div class="col-md-4">
-
-                    {{question}}
+            <div class="col-md-4">Round: {{r}}</div>
+             <div class="box bs3">
+                {{question}}
+             </div>
+            <div class="answer-section">
+                <a class="btn btn-section" href="{{ url_for('result', user_input=True) }}">Yes</a>
+                <a class="btn btn-section" href="{{ url_for('result', user_input=False) }}">No</a>
             </div>
-            <a href="{{ url_for('result', user_input=True) }}">Yes</a>|
-            <a href="{{ url_for('result', user_input=False) }}">No</a>
         </div>
     </div>
-
 {% endblock %}
