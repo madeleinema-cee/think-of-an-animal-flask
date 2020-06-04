@@ -6,10 +6,10 @@ body {
 }
 
 .page-header {
-    font-size: 80px;
+    font-size: 60px;
     font-family: 'Berkshire Swash', sans-serif;
-    margin: 30px;
-    padding: 50px;
+    margin: 20px;
+    padding: 30px;
 }
 
 .btn-section {
@@ -31,15 +31,12 @@ body {
     text-decoration-style: double;
 }
 
-
 .box {
     border: 2px solid #136F63;
     border-radius: 15px;
     font-size: larger;
     width: 400px;
-    margin-left: 100px;
-    margin-bottom: 20px;
-    margin-right: 200px;
+    margin: 25px auto;
     color: #136F63;
     padding: 20px;
     text-align: center;
@@ -91,14 +88,26 @@ body {
     background-color: #136F63;
 }
 
-
 .answer-section {
     margin: 25px 25px 25px 400px;
 }
 
-
 .content-section {
     font-family: Ubuntu, sans-serif;
     color: #136F63;
+    font-size: xx-large;
+}
+
+.form-section{
+    background-color: #FCDDBC;
+    border: #BAB2B5 solid 1px;
+    border-radius: 5px;
+    margin: 15px 200px;
+    padding: 15px;
+}
+
+.question-section {
+    font-family: Ubuntu, sans-serif;
+    color: #E2505C;
     font-size: xx-large;
 }
