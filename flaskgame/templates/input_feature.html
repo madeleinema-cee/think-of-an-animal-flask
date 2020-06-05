@@ -1,9 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
      <div class="container">
-         <div class="content-section">
-            {{content}}
-             {{animal}}
+         <div class="form-section">
+             <form method="post" action="">
+                 {{form.hidden_tag()}}
+                 <fieldset class="form-group">
+                     <div class="form-group">
+                         <div class="question-section">What is your animal?</div>
+                         {{form.animal_name(class="form-control form-control-lg")}}
+                     </div>
+                 </fieldset>
+                 <div class="form-group">
+                    {{form.submit(class="btn btn-section")}}
+                 </div>
+             </form>
          </div>
      </div>
 {% endblock %}

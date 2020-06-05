@@ -52,25 +52,22 @@ def result(user_input):
                 g.animal_data.remove(g.animal)
                 return redirect(url_for('guess'))
             else:
-                return redirect(url_for('input_animal'))
+                return redirect(url_for('input'))
     else:
-        return redirect(url_for('input_animal'))
+        return redirect(url_for('input'))
 
 
 @app.route('/input', methods=['GET', 'POST'])
-def input_animal():
+def input():
+    return render_template('input.html', content='I lost!')
+
+
+@app.route('/input/feature')
+def input_feature():
     form = AnimalForm()
     if form.validate_on_submit():
         animal = AnimalName(animal_name=form.animal_name.data)
         db.session.add(animal)
         db.session.commit()
-        return redirect(url_for('input_feature', animal_name=animal.animal_name))
-    return render_template('input.html', content='I lost!', form=form)
+    return render_template('input_feature.html', form=form)
 
-
-@app.route('/input_feature/<string:animal_name>', methods=['GET', 'POST'])
-def input_feature(animal_name):
-    animal = AnimalName.query.filter_by(animal_name=animal_name).first_or_404()
-    return render_template('input_feature.html',
-                           content='Thank you! Do you want to tell me more about this animal to improve the game?',
-                           animal=animal)
