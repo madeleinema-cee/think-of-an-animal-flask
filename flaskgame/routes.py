@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, redirect, flash
 from flaskgame import app, db
 from flaskgame.forms import AnimalForm
 from flaskgame.models import AnimalName
@@ -6,6 +6,7 @@ from game import Game
 
 
 g = Game()
+
 
 @app.route('/')
 @app.route('/home')
@@ -66,8 +67,22 @@ def input():
 def input_feature():
     form = AnimalForm()
     if form.validate_on_submit():
-        animal = AnimalName(animal_name=form.animal_name.data)
+        animal = AnimalName(animal_name=form.animal_name.data, hair=form.hair.data,
+                            feathers=form.feathers.data, eggs=form.eggs.data,
+                            milk=form.milk.data, airborne=form.airborne.data,
+                            aquatic=form.aquatic.data, predator=form.predator.data,
+                            toothed=form.toothed.data, backbone=form.backbone.data,
+                            breathes=form.breathes.data, venomous=form.venomous.data,
+                            fins=form.fins.data, legs=form.legs.data,
+                            tail=form.tail.data, domestic=form.domestic.data,
+                            catsize=form.catsize.data, class_type=form.class_type.data,
+                            )
         db.session.add(animal)
         db.session.commit()
+        flash('Your animal has been accepted!', 'success')
+        return redirect(url_for('home'))
     return render_template('input_feature.html', form=form)
+
+
+
 

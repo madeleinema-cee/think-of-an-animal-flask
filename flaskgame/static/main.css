@@ -115,5 +115,8 @@ body {
 .round-section {
     text-align: center;
     margin-left: 200px;
+}
 
+.label{
+    font-size: x-large;
 }
