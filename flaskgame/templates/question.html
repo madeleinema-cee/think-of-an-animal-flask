@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
+    <div class="container round-section">
         <div>Round: {{r}}</div>
+    </div>
+    <div class="container">
         <div class="box">
             {{question}}
         </div>
-    <a class="btn btn-section" href="{{ url_for('answer', user_input=True) }}">Yes</a>
-    <a class="btn btn-section" href="{{ url_for('answer', user_input=False) }}">No</a>
-</div>
+        <a class="btn btn-section" href="{{ url_for('answer', user_input=True) }}">Yes</a>
+        <a class="btn btn-section" href="{{ url_for('answer', user_input=False) }}">No</a>
+    </div>
 {% endblock %}

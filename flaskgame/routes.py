@@ -57,12 +57,12 @@ def result(user_input):
         return redirect(url_for('input'))
 
 
-@app.route('/input', methods=['GET', 'POST'])
+@app.route('/input')
 def input():
     return render_template('input.html', content='I lost!')
 
 
-@app.route('/input/feature')
+@app.route('/input/feature', methods=['GET', 'POST'])
 def input_feature():
     form = AnimalForm()
     if form.validate_on_submit():
