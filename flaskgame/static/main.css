@@ -102,8 +102,8 @@ body {
     background-color: #FCDDBC;
     border: #BAB2B5 solid 1px;
     border-radius: 5px;
-    margin: 15px 200px;
-    padding: 15px;
+    margin: 15px;
+    padding: 10px;
 }
 
 .question-section {
@@ -119,4 +119,16 @@ body {
 
 .label{
     font-size: x-large;
+}
+
+.radio {
+
+    padding: 5px;
+    margin-left:25px;
+    margin-right: 25px;
+    color: #136F63;
+}
+
+.form-group {
+    border-bottom: #FCD29F 1px dashed;
 }

@@ -2,6 +2,7 @@ from flask import render_template, url_for, redirect, flash
 from flaskgame import app, db
 from flaskgame.forms import AnimalForm
 from flaskgame.models import AnimalName
+from flaskgame.user_answers import user_answers
 from game import Game
 
 
@@ -81,6 +82,42 @@ def input_feature():
         db.session.commit()
         flash('Your animal has been accepted!', 'success')
         return redirect(url_for('home'))
+    for k in user_answers:
+        if k == 'hair':
+            form.hair.default = user_answers[k]
+        if k == 'feather':
+            form.feathers.default = user_answers[k]
+        if k == 'eggs':
+            form.eggs.default = user_answers[k]
+        if k == 'milk':
+            form.milk.default = user_answers[k]
+        if k == 'airborne':
+            form.airborne.default = user_answers[k]
+        if k == 'aquatic':
+            form.aquatic.default = user_answers[k]
+        if k == 'predator':
+            form.predator.default = user_answers[k]
+        if k == 'toothed':
+            form.toothed.default = user_answers[k]
+        if k == 'backbone':
+            form.backbone.default = user_answers[k]
+        if k == 'breathes':
+            form.breathes.default = user_answers[k]
+        if k == 'venomous':
+            form.venomous.default = user_answers[k]
+        if k == 'fins':
+            form.fins.default = user_answers[k]
+        if k == 'legs':
+            form.legs.default = user_answers[k]
+        if k == 'tail':
+            form.tail.default = user_answers[k]
+        if k == 'domestic':
+            form.domestic.default = user_answers[k]
+        if k == 'catsize':
+            form.catsize.default = user_answers[k]
+        if k == 'class_type':
+            form.class_type.default = user_answers[k]
+        form.process()
     return render_template('input_feature.html', form=form)
 
 
