@@ -17,12 +17,15 @@
             <title>Think of An Animal</title>
         {% endif %}
         </head>
-          <main role="main" class="container ">
-              {% with messages = get_flashed_messages(with_categories=true)%}
+            <main role="main" class="container ">
+                {% with messages = get_flashed_messages(with_categories=true)%}
                     {% if messages %}
                     {% for category, message in messages %}
-                    <div class="alert alert-{{category}}">
+                    <div class="alert alert-warning alert-dismissible fade show alert-{{category}}">
                         {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     {% endfor %}
                 {% endif %}

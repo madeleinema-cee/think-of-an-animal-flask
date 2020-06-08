@@ -80,7 +80,7 @@ def input_feature():
                             )
         db.session.add(animal)
         db.session.commit()
-        flash('Your animal has been accepted!', 'success')
+        flash('Thank you! Your animal has been accepted!')
         return redirect(url_for('home'))
     for k in user_answers:
         if k == 'hair':

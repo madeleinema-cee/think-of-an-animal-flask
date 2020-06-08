@@ -132,3 +132,8 @@ body {
 .form-group {
     border-bottom: #FCD29F 1px dashed;
 }
+
+.text-center{
+    position: center;
+    padding: 10px 100px
+}
