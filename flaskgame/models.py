@@ -1,4 +1,4 @@
-from flaskgame import db, app
+from flaskgame import db
 
 
 class AnimalName(db.Model):
@@ -21,4 +21,5 @@ class AnimalName(db.Model):
     domestic = db.Column(db.Integer, nullable=False)
     catsize = db.Column(db.Integer, nullable=False)
     class_type = db.Column(db.Integer, nullable=False)
+
 

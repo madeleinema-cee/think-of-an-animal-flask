@@ -14,12 +14,12 @@ class Game:
         self.viable_questions = None
         self.animal = None
         self.questions = questions
-
+    
+    
     def generate_question(self):
         self.viable_questions = self.find_viable_question()
         if self.viable_questions:
             self.question_key = random.choice(self.viable_questions)
-            print(self.question_key)
             if self.question_key == 'class_type':
                 question = self.identify_viable_class_types()
                 return question
@@ -35,13 +35,11 @@ class Game:
         if len(self.animal_data) == 1:
             self.animal = random.choice(self.animal_data)
             name = self.animal['animal_name']
-            print(name)
             question = f'is {name} your animal?'
             return question
         else:
             self.animal = random.choice(self.animal_data)
             name = self.animal['animal_name']
-            print(name)
             question = f'is {name} your animal?'
             return question
 
@@ -114,15 +112,12 @@ class Game:
             if self.question_key == 'class_type':
                 self.modify_query('class_type', self.value)
                 user_answers['class_type'] = self.value
-                print(user_answers)
             elif self.question_key == 'legs':
                 self.modify_query('legs', self.value)
                 user_answers['legs'] = self.value
-                print(user_answers)
             else:
                 self.modify_query(self.question_key, 1)
                 user_answers[self.question_key] = 1
-                print(user_answers)
         if user_input == 'False':
             if self.question_key == 'class_type':
                 self.modify_query('class_type', self.value, conditional=False)
@@ -131,16 +126,14 @@ class Game:
             else:
                 self.modify_query(self.question_key, 0)
                 user_answers[self.question_key] = 0
-                print(user_answers)
         self.rounds += 1
-        print(self.rounds)
-        print(self.query)
 
     def modify_query(self, key, value, conditional=True):
         if self.rounds == 1:
             self.query = f'{self.query} where {self.question_key} {"=" if conditional else "!="} {value}'
         else:
             self.query = f'{self.query} and {key} {"=" if conditional else "!="} {value}'
+
 
 # if __name__ == '__main__':
 #     g = Game()
