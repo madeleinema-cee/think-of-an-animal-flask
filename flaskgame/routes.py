@@ -18,57 +18,57 @@ def home():
 @app.route('/instantiate_game')
 def instantiate_game():
     session.clear()
-    game_dict.clear()
     print(game_dict)
     print(session)
     game_id = randint(1, 100)
     session[game_id] = str(uuid4())
-    game_dict[session[game_id]] = Game()
-    print(game_dict[session[game_id]].generate_question())
+    id = session[game_id]
+    game_dict[id] = Game()
     print(session)
     print(game_dict)
     session.modified = True
-    return redirect(url_for('question', game_id=game_id))
+    return redirect(url_for('question', id=id))
 
 
-@app.route('/question/<int:game_id>')
-def question(game_id):
-    q = game_dict[session[game_id]].generate_question()
-    if game_dict[session[game_id]].viable_questions:
-        return render_template('question.html', question=q, data=game_dict[session[game_id]].animal_data,
-                               r=game_dict[session[game_id]].rounds, query=game_dict[session[game_id]].query,
-                               viable_q=game_dict[session[game_id]].viable_questions, game_id=game_id)
+@app.route('/question/<string:id>', methods=['GET'])
+def question(id):
+    q = game_dict[id].generate_question()
+    if game_dict[id].viable_questions:
+        return render_template('question.html', question=q, data=game_dict[id].animal_data,
+                               r=game_dict[id].rounds, query=game_dict[id].query,
+                               viable_q=game_dict[id].viable_questions, id=id)
     else:
-        return redirect(url_for('guess', game_id=game_id))
+        return redirect(url_for('guess', id=id))
 
 
-@app.route('/answer/<user_input>')
-def answer(user_input, game_id):
-    if game_dict[session[game_id]].rounds < 10:
-        if game_dict[session[game_id]].viable_questions:
-            game_dict[session[game_id]].handle_answer(user_input)
-            return redirect(url_for('question', game_id=game_id))
+@app.route('/answer/<string:id>/<user_input>', methods=['GET'])
+def answer(user_input, id):
+    if game_dict[id].rounds < 10:
+        if game_dict[id].viable_questions:
+            game_dict[id].handle_answer(user_input)
+            return redirect(url_for('question', id=id))
         else:
-            return redirect(url_for('guess', game_id=game_id))
+            return redirect(url_for('guess', id=id))
     else:
-        return redirect (url_for('guess', game_id=game_id))
-
-@app.route('/guess')
-def guess(game_id):
-    question = game_dict[session[game_id]].guess_animal()
-    return render_template('guess.html', question=question, r=game_dict[session[game_id]].rounds)
+        return redirect (url_for('guess', id=id))
 
 
-@app.route('/result/<user_input>')
-def result(user_input, game_id):
-    if game_dict[session[game_id]].rounds < 10:
+@app.route('/guess/<string:id>', methods=['GET', 'POST'])
+def guess(id):
+    question = game_dict[id].guess_animal()
+    return render_template('guess.html', question=question, r=game_dict[id].rounds, id=id)
+
+
+@app.route('/result/<string:id>/<user_input>')
+def result(user_input, id):
+    if game_dict[id].rounds < 10:
         if user_input == 'True':
-            return render_template('result.html', content='I won!')
+            return render_template('result.html', id=id, content='I won!')
         else:
-            game_dict[session[game_id]].rounds += 1
-            if len(game_dict[session[game_id]].animal_data) > 1:
-                game_dict[session[game_id]].animal_data.remove(game_dict[session[game_id]].animal)
-                return redirect(url_for('guess', game_id=game_id))
+            game_dict[id].rounds += 1
+            if len(game_dict[id].animal_data) > 1:
+                game_dict[id].animal_data.remove(game_dict[id].animal)
+                return redirect(url_for('guess', id=id))
             else:
                 return redirect(url_for('input'))
     else:
