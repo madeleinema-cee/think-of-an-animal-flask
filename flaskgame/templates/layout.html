@@ -34,8 +34,9 @@
         <body>
 
         <div class="container">
-            <h1 class="page-header" href="/">Think of An Animal</h1>
-
+            <a class="page-header" href="{{ url_for('home') }}">
+                <div>Think of An Animal</div>
+            </a>
             {% block content %}{% endblock %}
         </div>
 

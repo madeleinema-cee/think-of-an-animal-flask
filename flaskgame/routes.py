@@ -18,8 +18,6 @@ def home():
 @app.route('/instantiate_game')
 def instantiate_game():
     session.clear()
-    print(game_dict)
-    print(session)
     game_id = randint(1, 100)
     session[game_id] = str(uuid4())
     id = session[game_id]
@@ -48,7 +46,10 @@ def answer(user_input, id):
             game_dict[id].handle_answer(user_input)
             return redirect(url_for('question', id=id))
         else:
-            return redirect(url_for('guess', id=id))
+            if game_dict[id].animal_data:
+                return redirect(url_for('guess', id=id))
+            else:
+                return redirect(url_for('input'))
     else:
         return redirect (url_for('guess', id=id))
 
@@ -72,7 +73,10 @@ def result(user_input, id):
             else:
                 return redirect(url_for('input'))
     else:
+        if user_input == 'True':
+            return render_template('result.html', id=id, content='I guessed the animal, but I ran out of rounds!')
         return redirect(url_for('input'))
+
 
 
 @app.route('/input')
