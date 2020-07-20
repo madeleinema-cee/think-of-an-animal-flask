@@ -1,8 +1,8 @@
 
 :root {
-    --bgcolor: #82c0cc;
-    --primary: #FA8C35;
-    --secondary: #16697a;
+    --bgcolor: #F9E4B3;
+    --primary: #F78154;
+    --secondary: #5FAD56;
 
 }
 
@@ -11,20 +11,28 @@ body {
     font-family: Ubuntu, sans-serif;
     color: var(--primary);
     text-align: center;
+    padding-top: 60px;
+    padding-bottom: 10px;
+    height: 100vh;
+
 }
 
 .page-header {
     font-size: 60px;
     font-family: 'Berkshire Swash', sans-serif;
-    margin: 20px;
-    padding: 30px;
+    margin-top: 50px;
+    padding-top: 20px;
+    padding-bottom: 40px;
     text-decoration: none;
     color: var(--primary);
+    text-shadow: 2px 1px #FF7500;
+
 }
 
 .page-header:hover {
     text-decoration: none;
-    color: #FF7500
+    color: #FF7500;
+
 
 }
 
@@ -37,6 +45,8 @@ body {
     padding: 10px;
     text-align: center;
     position:relative;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .start-button{
@@ -45,58 +55,23 @@ body {
     padding: 20px;
     font-weight: 900;
     text-decoration-style: double;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .box {
     border: 2px solid var(--secondary);
     border-radius: 15px;
     font-size: larger;
-    width: 400px;
-    margin: 25px auto;
+    width: 60%;
+    margin: auto;
     color: var(--secondary);
     padding: 20px;
     text-align: center;
     font-weight: 900;
-    position:relative
-}
+    position:relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-.bs2:before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    border-left: 10px solid transparent;
-    border-right: 10px solid var(--secondary);
-    border-top: 10px solid var(--secondary);
-    border-bottom: 10px solid transparent;
-    left: 20px;
-    bottom: -20px;
-}
-
-.bs1:before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    border-left: 10px solid var(--secondary);
-    border-right: 10px solid transparent;
-    border-top: 10px solid var(--secondary);
-    border-bottom: 10px solid transparent;
-    right: -20px;
-    top: 6px;
-}
-
-.bs3:before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    border-left: 10px solid transparent;
-    border-right: 10px solid var(--secondary);
-    border-top: 10px solid var(--secondary);
-    border-bottom: 10px solid transparent;
-    right: 10px;
-    bottom: -10px;
 }
 
 .btn-section:hover{
@@ -118,7 +93,6 @@ body {
     background-color: var(--bgcolor);
     border: #BAB2B5 solid 1px;
     border-radius: 5px;
-    margin: 15px;
     padding: 10px;
 }
 
@@ -129,8 +103,10 @@ body {
 }
 
 .round-section {
-    text-align: center;
-    margin-left: 200px;
+    text-align: right;
+    width: 50%;
+    padding-bottom: 20px;
+    margin: auto;
 }
 
 .label{
@@ -138,7 +114,6 @@ body {
 }
 
 .radio {
-
     padding: 5px;
     margin-left:25px;
     margin-right: 25px;
@@ -149,7 +124,27 @@ body {
     border-bottom: var(--bgcolor) 1px dashed;
 }
 
-.text-center{
-    position: center;
-    padding: 10px 100px
+
+
+.form-control {
+    color: var(--primary);
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
+footer {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: xx-small;
+}
+
+.copy-link {
+    color: var(--secondary);
+}
+
+.copy-link:hover {
+    color: var(--primary);
+    text-decoration: none;
+}
+
