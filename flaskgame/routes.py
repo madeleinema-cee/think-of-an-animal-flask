@@ -51,7 +51,7 @@ def answer(user_input, id):
             else:
                 return redirect(url_for('input'))
     else:
-        return redirect (url_for('guess', id=id))
+        return redirect(url_for('guess', id=id))
 
 
 @app.route('/guess/<string:id>', methods=['GET', 'POST'])
@@ -76,7 +76,6 @@ def result(user_input, id):
         if user_input == 'True':
             return render_template('result.html', id=id, content='I guessed the animal, but I ran out of rounds!')
         return redirect(url_for('input'))
-
 
 
 @app.route('/input')

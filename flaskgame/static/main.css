@@ -13,7 +13,6 @@ body {
     text-align: center;
     padding-top: 60px;
     padding-bottom: 10px;
-    height: 100vh;
 
 }
 
@@ -26,14 +25,12 @@ body {
     text-decoration: none;
     color: var(--primary);
     text-shadow: 2px 1px #FF7500;
-
+    width: 100px;
 }
 
 .page-header:hover {
     text-decoration: none;
     color: #FF7500;
-
-
 }
 
 .btn-section {
@@ -124,8 +121,6 @@ body {
     border-bottom: var(--bgcolor) 1px dashed;
 }
 
-
-
 .form-control {
     color: var(--primary);
     padding-left: 10px;
@@ -133,9 +128,9 @@ body {
 }
 
 footer {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
+    position: relative;
+    bottom: -100px;
+    height: 10px;
     font-size: xx-small;
 }
 
@@ -148,3 +143,8 @@ footer {
     text-decoration: none;
 }
 
+.alert {
+    position: absolute;
+    top: 0;
+    right: 10px
+}

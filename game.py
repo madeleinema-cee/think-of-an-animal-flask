@@ -14,8 +14,7 @@ class Game:
         self.viable_questions = None
         self.animal = None
         self.questions = questions
-    
-    
+
     def generate_question(self):
         self.viable_questions = self.find_viable_question()
         if self.viable_questions:
@@ -89,6 +88,7 @@ class Game:
             return class_question
 
     def identify_viable_legs(self):
+
         viable_legs = []
         class_values, leg_values = self.find_viable_class_or_leg_values()
         legs = questions['legs']['leg_questions']
