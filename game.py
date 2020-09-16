@@ -3,10 +3,13 @@ from db import Db
 from questions import questions
 from flaskgame.user_answers import user_answers
 
+
+
 class Game:
     def __init__(self):
         self.animal_data = None
         self.db = Db('animals.db')
+        # /home/yuema/animalgame.madeleinema.com/flaskgame
         self.query = 'select * from animals'
         self.rounds = 1
         self.question_key = None
