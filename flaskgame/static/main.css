@@ -13,6 +13,7 @@ body {
     text-align: center;
     padding-top: 60px;
     padding-bottom: 10px;
+    height: 100vh;
 
 }
 
@@ -128,9 +129,10 @@ body {
 }
 
 footer {
-    position: relative;
-    bottom: -100px;
-    height: 10px;
+    position: absolute;
+    bottom: 5px;
+    margin: auto;
+    width: 99%;
     font-size: xx-small;
 }
 

@@ -22,8 +22,6 @@ def instantiate_game():
     session[game_id] = str(uuid4())
     id = session[game_id]
     game_dict[id] = Game()
-    print(session)
-    print(game_dict)
     session.modified = True
     return redirect(url_for('question', id=id))
 
