@@ -8,7 +8,9 @@ from flaskgame.user_answers import user_answers
 from flaskgame.game_dict import game_dict
 from game import Game
 
-
+@app.before_request
+def before_request():
+    app.jinja_env.cache = {}
 
 @app.route('/')
 @app.route('/home')
@@ -24,39 +26,39 @@ def instantiate_game():
     id = session[game_id]
     game_dict[id] = Game()
     session.modified = True
-    return redirect(url_for('question', id=id))
+    return redirect(url_for('question', id=id, r=game_dict[id].rounds-1))
 
 
-@app.route('/question/<string:id>', methods=['GET'])
-def question(id):
+@app.route('/question/<string:id>/<int:r>', methods=['GET'])
+def question(id, r):
     q = game_dict[id].generate_question()
     if game_dict[id].viable_questions:
+        r = r+1
         return render_template('question.html', question=q, data=game_dict[id].animal_data,
-                               r=game_dict[id].rounds, query=game_dict[id].query,
-                               viable_q=game_dict[id].viable_questions, id=id)
+                               r=r, query=game_dict[id].query, viable_q=game_dict[id].viable_questions, id=id)
     else:
-        return redirect(url_for('guess', id=id))
+        return redirect(url_for('guess', id=id, r=game_dict[id].rounds))
 
 
-@app.route('/answer/<string:id>/<user_input>', methods=['GET'])
-def answer(user_input, id):
-    if game_dict[id].rounds < 10:
+@app.route('/answer/<string:id>/<int:r>/<user_input>', methods=['GET'])
+def answer(user_input, id, r):
+    if r < 10:
         if game_dict[id].viable_questions:
             game_dict[id].handle_answer(user_input)
-            return redirect(url_for('question', id=id))
+            return redirect(url_for('question', id=id, r=r))
         else:
             if game_dict[id].animal_data:
-                return redirect(url_for('guess', id=id))
+                return redirect(url_for('guess', id=id, r=r))
             else:
                 return redirect(url_for('input'))
     else:
-        return redirect(url_for('guess', id=id))
+        return redirect(url_for('guess', id=id, r=rs))
 
 
-@app.route('/guess/<string:id>', methods=['GET', 'POST'])
-def guess(id):
+@app.route('/guess/<string:id>/<int:r>', methods=['GET', 'POST'])
+def guess(id, r):
     question = game_dict[id].guess_animal()
-    return render_template('guess.html', question=question, r=game_dict[id].rounds, id=id)
+    return render_template('guess.html', question=question, r=r, id=id)
 
 
 @app.route('/result/<string:id>/<user_input>')
@@ -137,3 +139,6 @@ def input_feature():
             form.class_type.default = user_answers[k]
         form.process()
     return render_template('input_feature.html', form=form)
+
+
+
