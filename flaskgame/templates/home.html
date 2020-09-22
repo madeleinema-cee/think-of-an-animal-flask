@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-    <a class="btn btn-section start-button" href="{{ url_for('instantiate_game') }}">Start Game?</a>
+
+    <div class="direction"><a href="{{ url_for('instantiate_game') }}" class="start-button">Start Game?</a></div>
+
 
 {% endblock %}

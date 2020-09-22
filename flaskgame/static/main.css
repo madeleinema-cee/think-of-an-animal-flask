@@ -1,60 +1,67 @@
 
 :root {
-    --bgcolor: #F9E4B3;
-    --primary: #F78154;
-    --secondary: #5FAD56;
-
+    --bgcolor: #A4DEAB;
+    --primary: #499E8D;
+    --secondary: #FFF6C9;
 }
 
 body {
     background: var(--bgcolor);
+    background-image: url("background.png");
     font-family: Ubuntu, sans-serif;
     color: var(--primary);
-    text-align: center;
-    padding-top: 60px;
+    padding-top: 20vh;
     padding-bottom: 10px;
+    text-align: center;
     height: 100vh;
+}
 
+.content {
+    min-height: 70vh;
 }
 
 .page-header {
-    font-size: 60px;
-    font-family: 'Berkshire Swash', sans-serif;
-    margin-top: 50px;
-    padding-top: 20px;
-    padding-bottom: 40px;
+    font-size: 70px;
+    font-family: 'Indie Flower', sans-serif;
+    text-shadow: 3px 3px grey;
+    color: var(--primary);
+}
+
+.page-header:hover{
     text-decoration: none;
     color: var(--primary);
-    text-shadow: 2px 1px #FF7500;
-    width: 100px;
 }
 
-.page-header:hover {
-    text-decoration: none;
-    color: #FF7500;
+.direction{
+    -ms-transform: skewY(-5deg);
+    transform: skewY(-5deg);
 }
+
+
 
 .btn-section {
-    border: 2px solid var(--secondary);
+    border: 2px solid var(--primary);
     border-radius: 15px;
     font-size: larger;
     margin: 25px auto;
-    color: var(--secondary);
+    color: var(--primary);
     padding: 10px;
     text-align: center;
     position:relative;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .start-button{
-    width: 300px;
-    margin: 50px auto;
-    padding: 20px;
-    font-weight: 900;
-    text-decoration-style: double;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 50px;
+    font-family: 'Indie Flower', sans-serif;
+    color: var(--secondary);
+    width: 50%;
+    margin: auto;
+}
 
+.start-button:hover{
+    text-decoration: none;
+    color: var(--secondary);
 }
 
 .box {
@@ -88,7 +95,8 @@ body {
 }
 
 .form-section{
-    background-color: var(--bgcolor);
+    background-color: var(--secondary);
+    opacity: 70%;
     border: #BAB2B5 solid 1px;
     border-radius: 5px;
     padding: 10px;
@@ -96,7 +104,7 @@ body {
 
 .question-section {
     font-family: Ubuntu, sans-serif;
-    color: var(--secondary);
+    color: var(--primary);
     font-size: xx-large;
 }
 
@@ -115,7 +123,7 @@ body {
     padding: 5px;
     margin-left:25px;
     margin-right: 25px;
-    color: var(--secondary);
+    color: var(--primary);
 }
 
 .form-group {
@@ -129,7 +137,8 @@ body {
 }
 
 footer {
-    position: absolute;
+    position: relative;
+    padding: 10px;
     bottom: 5px;
     margin: auto;
     width: 99%;
@@ -150,3 +159,4 @@ footer {
     top: 0;
     right: 10px
 }
+

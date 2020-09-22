@@ -33,7 +33,7 @@ def question(id, r):
         return render_template('question.html', question=q, data=game_dict[id].animal_data,
                                r=r, query=game_dict[id].query, viable_q=game_dict[id].viable_questions, id=id)
     else:
-        return redirect(url_for('guess', id=id, r=game_dict[id].rounds))
+        return redirect(url_for('guess', id=id, r=r))
 
 
 @app.route('/answer/<string:id>/<int:r>/<user_input>', methods=['GET'])
@@ -63,7 +63,7 @@ def result(user_input, id, r):
         if user_input == 'True':
             return render_template('result.html', id=id, content='I won!')
         else:
-            game_dict[id].rounds += 1
+            r += 1
             if len(game_dict[id].animal_data) > 1:
                 game_dict[id].animal_data.remove(game_dict[id].animal)
                 return redirect(url_for('guess', r=r, id=id))
