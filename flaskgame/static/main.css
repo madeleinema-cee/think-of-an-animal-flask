@@ -32,6 +32,7 @@
     }
     .page-header {
         font-size: 70px;
+        font-weight: bold;
         font-family: 'Indie Flower', sans-serif;
         text-shadow: 3px 3px grey;
         color: var(--primary);
@@ -45,13 +46,13 @@
         background-image: url("background.png");
         font-family: Sniglet, cursive;
         color: var(--primary);
-        padding-top: 5vh;
+        padding-top: 10vh;
         padding-bottom: 10px;
         text-align: center;
         height: 100vh;
     }
     div.content {
-        min-height: 85vh;
+        min-height: 80vh;
     }
     .box {
         border-radius: 15px;
@@ -66,6 +67,7 @@
     }
     .page-header {
         font-size: 50px;
+        font-weight: bold;
         font-family: 'Indie Flower', sans-serif;
         text-shadow: 3px 3px grey;
         color: var(--primary);
@@ -112,8 +114,6 @@
     text-decoration: none;
     color: var(--secondary);
 }
-
-
 
 .question{
     font-family: 'Indie Flower', sans-serif;
@@ -171,7 +171,7 @@
     width: 50%;
     padding-bottom: 20px;
     margin: auto;
-    font-family: cursive;
+    font-family: "Indie Flower", cursive;
 }
 
 .label{
@@ -194,7 +194,7 @@
 
 footer {
     position: relative;
-    padding: 10px;
+    padding-top: 10px;
     bottom: 5px;
     margin: auto;
     width: 99%;
