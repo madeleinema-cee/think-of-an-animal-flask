@@ -18,7 +18,25 @@
     }
     div.content {
         min-height: 75vh;
-}
+    }
+    div.box {
+        border-radius: 15px;
+        background: rgba(73, 158, 141, 0.3);
+        font-size: x-large;
+        width: 60%;
+        margin: auto;
+        color: var(--secondary);
+        padding: 40px 20px;
+        text-align: center;
+        font-family: 'Lilita One', cursive;
+    }
+    .page-header {
+        font-size: 70px;
+        font-family: 'Indie Flower', sans-serif;
+        text-shadow: 3px 3px grey;
+        color: var(--primary);
+    }
+
 }
 
 @media screen and (max-width: 700px) {
@@ -27,22 +45,33 @@
         background-image: url("background.png");
         font-family: Sniglet, cursive;
         color: var(--primary);
-        padding-top: 10vh;
+        padding-top: 5vh;
         padding-bottom: 10px;
         text-align: center;
         height: 100vh;
     }
     div.content {
         min-height: 85vh;
-}
+    }
+    .box {
+        border-radius: 15px;
+        background: rgba(73, 158, 141, 0.3);
+        font-size: x-large;
+        width: 99%;
+        margin: auto;
+        color: var(--secondary);
+        padding: 20px 5px;
+        text-align: center;
+        font-family: 'Lilita One', cursive;
+    }
+    .page-header {
+        font-size: 50px;
+        font-family: 'Indie Flower', sans-serif;
+        text-shadow: 3px 3px grey;
+        color: var(--primary);
+    }
 }
 
-.page-header {
-    font-size: 70px;
-    font-family: 'Indie Flower', sans-serif;
-    text-shadow: 3px 3px grey;
-    color: var(--primary);
-}
 
 .page-header:hover{
     text-decoration: none;
@@ -84,17 +113,7 @@
     color: var(--secondary);
 }
 
-.box {
-    border-radius: 15px;
-    background: rgba(73, 158, 141, 0.3);
-    font-size: x-large;
-    width: 60%;
-    margin: auto;
-    color: var(--secondary);
-    padding: 40px 20px;
-    text-align: center;
-    font-family: 'Lilita One', cursive;
-}
+
 
 .question{
     font-family: 'Indie Flower', sans-serif;

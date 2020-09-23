@@ -8,7 +8,7 @@ from flaskgame.user_answers import user_answers
 class Game:
     def __init__(self):
         self.animal_data = None
-        self.db = Db('animals.db')
+        self.db = Db('/home/yuema/animalgame.madeleinema.com/flaskgame/animals.db')
         #/home/yuema/animalgame.madeleinema.com/flaskgame/animals.db
         self.query = 'select * from animals'
         self.rounds = 1

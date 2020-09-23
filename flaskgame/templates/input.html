@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-     <div class="container">
-         <div class="content-section mb-4">
-            {{content}}
-         </div>
-         <a class="choice" href="{{ url_for('instantiate_game', game_id=game_id)}}">Play Again</a><br>
-         <a class="choice" href="{{url_for('input_feature')}}">Tell Me Your Animal?</a>
+     <div class="" id="page-header">
+        <div class="direction"><a href="{{ url_for('home') }}" class="page-header">Think of An Animal !</a></div>
+    </div>
+     <div class="content-section mb-4">
+        {{content}}
      </div>
+     <a class="choice" href="{{ url_for('instantiate_game', game_id=game_id)}}">Play Again</a><br>
+     <a class="choice" href="{{url_for('input_feature')}}">Tell Me Your Animal?</a>
+
 {% endblock %}

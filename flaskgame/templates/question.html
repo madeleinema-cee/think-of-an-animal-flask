@@ -1,13 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="container">
-        <div class="round-section">Round: {{r}}</div>
+    <div class="" id="page-header">
+        <div class="direction"><a href="{{ url_for('home') }}" class="page-header">Think of An Animal !</a></div>
     </div>
-    <div class="container">
-        <div class="box">
-            {{question}}
-        </div>
-        <a class="question mr-3" href="{{ url_for('answer', user_input=True, id=id, r=r)}}">Yes</a>
-        <a class="question ml-5" href="{{ url_for('answer', user_input=False, id=id, r=r)}}">No</a>
+    <div class="round-section">Round: {{r}}</div>
+    <div class="box">
+        {{question}}
     </div>
+    <a class="question mr-3" href="{{ url_for('answer', user_input=True, id=id, r=r)}}">Yes</a>
+    <a class="question ml-5" href="{{ url_for('answer', user_input=False, id=id, r=r)}}">No</a>
 {% endblock %}
