@@ -6,126 +6,92 @@
                  {{form.hidden_tag()}}
                      <div class="form-group">
                          <div class="question-section">What is your animal?</div>
-                         <div class="text-center">{{form.animal_name(class="form-control")}}</div>
+                         <div>{{form.animal_name(class="form-control-md")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.hair.label(class="form-control-label")}}</div>
-                             <div class="col-md-4 radio">{{form.hair(class="form-check-inline",
+                     <div class="row">
+                         <div class="col label">{{form.hair.label(class="form-control-label")}}</div>
+                         <div class="col radio">{{form.hair(class="form-check-inline",
+                            style="list-style:none; margin-right: 10px")}}</div>
+                    </div>
+                     <div class="row">
+                         <div class="col label">{{form.feathers.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.feathers(class="form-check-inline",
+                             style="list-style:none; margin-right: 10px")}}</div>
+                     </div>
+                     <div class="row">
+                         <div class="col label">{{form.eggs.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.eggs(class="form-check-inline",
                                 style="list-style:none; margin-right: 10px")}}</div>
-                        </div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.feathers.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.feathers(class="form-check-inline",
-                                 style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.milk.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.milk(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.eggs.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.eggs(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.airborne.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.airborne(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.milk.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.milk(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.aquatic.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.aquatic(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.airborne.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.airborne(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.predator.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.predator(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.aquatic.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.aquatic(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.toothed.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.toothed(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.predator.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.predator(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.backbone.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.backbone(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.toothed.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.toothed(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.breathes.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.breathes(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.backbone.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.backbone(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.venomous.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.venomous(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.breathes.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.breathes(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.fins.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.fins(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.venomous.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.venomous(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.legs.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.legs(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.fins.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.fins(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.tail.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.tail(class="form-check-inline",
+                                style="list-style:none")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.legs.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.legs(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.domestic.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.domestic(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.tail.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.tail(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.catsize.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.catsize(class="form-check-inline",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.domestic.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.domestic(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
-                     </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.catsize.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.catsize(class="form-check-inline",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
-                     </div>
-                     <div class="form-group">
-                         <div class="row">
-                             <div class="col-md-6 label">{{form.class_type.label(class="form-check-label")}}</div>
-                             <div class="col-md-4 radio">{{form.class_type(class="form-check",
-                                    style="list-style:none; margin-right: 10px")}}</div>
-                         </div>
+                     <div class="row">
+                         <div class="col label">{{form.class_type.label(class="form-check-label")}}</div>
+                         <div class="col radio">{{form.class_type(class="form-check",
+                                style="list-style:none; margin-right: 10px")}}</div>
                      </div>
                      <div class="form-group">
                           {{form.submit(class="btn btn-section")}}

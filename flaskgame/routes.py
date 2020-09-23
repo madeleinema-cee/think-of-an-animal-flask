@@ -5,8 +5,11 @@ from flaskgame import app, db
 from flaskgame.forms import AnimalForm
 from flaskgame.models import AnimalName
 from flaskgame.user_answers import user_answers
-from flaskgame.game_dict import game_dict
 from game import Game
+
+game_dict = {
+
+}
 
 @app.route('/')
 @app.route('/home')
@@ -18,7 +21,7 @@ def home():
 def instantiate_game():
     session.clear()
     game_id = randint(1, 100)
-    session[game_id] = str(uuid4())
+    session[game_id] = str(uuid4().hex[:6])
     id = session[game_id]
     game_dict[id] = Game()
     session.modified = True
@@ -28,7 +31,7 @@ def instantiate_game():
 @app.route('/question/<string:id>/<int:r>', methods=['GET'])
 def question(id, r):
     q = game_dict[id].generate_question()
-    if game_dict[id].viable_questions:
+    if game_dict[id].viable_questions and game_dict[id].animal_data:
         r = r+1
         return render_template('question.html', question=q, data=game_dict[id].animal_data,
                                r=r, query=game_dict[id].query, viable_q=game_dict[id].viable_questions, id=id)
@@ -39,7 +42,7 @@ def question(id, r):
 @app.route('/answer/<string:id>/<int:r>/<user_input>', methods=['GET'])
 def answer(user_input, id, r):
     if r < 10:
-        if game_dict[id].viable_questions:
+        if game_dict[id].viable_questions and game_dict[id].animal_data:
             game_dict[id].handle_answer(user_input)
             return redirect(url_for('question', id=id, r=r))
         else:
@@ -61,7 +64,7 @@ def guess(id, r):
 def result(user_input, id, r):
     if game_dict[id].rounds < 10:
         if user_input == 'True':
-            return render_template('result.html', id=id, content='I won!')
+            return render_template('result.html', id=id, content='(๑¯∀¯๑) I won!')
         else:
             r += 1
             if len(game_dict[id].animal_data) > 1:
@@ -77,7 +80,7 @@ def result(user_input, id, r):
 
 @app.route('/input')
 def input():
-    return render_template('input.html', content='I lost!')
+    return render_template('input.html', content=' (；′⌒`) I lost!')
 
 
 @app.route('/input/feature', methods=['GET', 'POST'])
@@ -96,7 +99,7 @@ def input_feature():
                             )
         db.session.add(animal)
         db.session.commit()
-        flash('Thank you! Your animal has been accepted!')
+        flash('Thank you for submitting the animal!')
         return redirect(url_for('home'))
     for k in user_answers:
         if k == 'hair':

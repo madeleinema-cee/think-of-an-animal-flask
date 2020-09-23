@@ -7,7 +7,7 @@
          <div class="box">
             {{question}}
          </div>
-            <a class="btn btn-section" href="{{ url_for('result', user_input=True, id=id, r=r) }}">Yes</a>
-            <a class="btn btn-section" href="{{ url_for('result', user_input=False, id=id, r=r) }}">No</a>
+            <a class="question mr-3" href="{{ url_for('result', user_input=True, id=id, r=r) }}">Yes</a>
+            <a class="question ml-5" href="{{ url_for('result', user_input=False, id=id, r=r) }}">No</a>
     </div>
 {% endblock %}

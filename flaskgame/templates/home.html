@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-
-    <div class="direction"><a href="{{ url_for('instantiate_game') }}" class="start-button">Start Game?</a></div>
-
-
+<div id="why" class="animate__animated animate__tada animate__slow">
+    <div class="direction" onclick="removeAnimation()"><a href="{{ url_for('instantiate_game') }}" class="start-button">Start Game?</a></div>
+</div>
 {% endblock %}
