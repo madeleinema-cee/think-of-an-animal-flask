@@ -130,6 +130,7 @@
 
 .question:hover{
     text-decoration: none;
+    color: var(--primary);
     opacity: 70%;
 }
 
