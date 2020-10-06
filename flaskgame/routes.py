@@ -2,6 +2,7 @@ from random import randint
 from uuid import uuid4
 from flask import render_template, url_for, redirect, flash, session
 from flaskgame import app, db
+from db import Db
 from flaskgame.forms import AnimalForm
 from flaskgame.models import AnimalName
 from flaskgame.user_answers import user_answers
@@ -14,7 +15,9 @@ game_dict = {
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    d = Db('animals.db')
+    animals = d.fetchall(query='select * from animals')
+    return render_template('home.html', animals=animals)
 
 
 @app.route('/instantiate_game')

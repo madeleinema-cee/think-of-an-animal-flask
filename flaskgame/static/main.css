@@ -5,6 +5,19 @@
     --secondary: #FFF6C9;
 }
 
+.start-button{
+    font-size: 50px;
+    font-family: 'Indie Flower', sans-serif;
+    color: var(--secondary);
+    width: 50%;
+    margin: auto;
+}
+
+.start-button:hover{
+    text-decoration: none;
+    color: var(--secondary);
+}
+
 @media screen and (min-width: 701px) {
     body {
         background: var(--bgcolor);
@@ -37,6 +50,13 @@
         text-shadow: 3px 3px grey;
         color: var(--primary);
         word-spacing: 10px;
+    }
+    div.start-button{
+        font-size: 50px;
+        font-family: 'Indie Flower', sans-serif;
+        color: var(--secondary);
+        width: 50%;
+        margin: auto;
     }
 
 }
@@ -74,6 +94,13 @@
         color: var(--primary);
         word-spacing: 10px;
     }
+    div.start-button{
+        font-size: 30px;
+        font-family: 'Indie Flower', sans-serif;
+        color: var(--secondary);
+        width: 50%;
+        margin: auto;
+    }
 }
 
 
@@ -91,30 +118,16 @@
     border: 2px solid var(--primary);
     border-radius: 15px;
     font-size: larger;
-    margin: 25px auto;
     color: var(--primary);
-    padding: 10px;
     text-align: center;
     position:relative;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .btn-section:hover{
     color: var(--secondary);
     background-color: var(--primary);
-}
-
-.start-button{
-    font-size: 50px;
-    font-family: 'Indie Flower', sans-serif;
-    color: var(--secondary);
-    width: 50%;
-    margin: auto;
-}
-
-.start-button:hover{
-    text-decoration: none;
-    color: var(--secondary);
 }
 
 .question{
@@ -224,5 +237,13 @@ footer {
     border-radius: 5px;
 }
 
+.each_animal{
+    display: inline-block;
+    padding: 5px;
+}
+.modal-title{
+    margin: auto;
+    width: 99%;
+}
 
 

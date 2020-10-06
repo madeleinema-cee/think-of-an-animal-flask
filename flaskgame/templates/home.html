@@ -6,4 +6,37 @@
     <div class="animate__animated animate__fadeInUp animate__delay-1s">
         <div class="direction" onclick="removeAnimation()"><a href="{{ url_for('instantiate_game') }}" class="start-button">Start Game?</a></div>
     </div>
+    <br>
+    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+        <div class="direction" onclick="removeAnimation()"><a href="#" class="choice" data-toggle="modal" data-target="#animals"><u>check all animals</u></a></div>
+        <div class="direction">o((;=ﾟ 3ﾟ =))o～♪</div>
+    </div>
+
+    <div class="modal fade" id="animals" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title">Animals</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+            {% for animal in animals %}
+                {% if (animal['id']) % 2 == 0 %}
+                    <p class="each_animal" style="color:#A4DEAB">{{ animal['animal_name']}}</p>
+                {% elif (animal['id']) % 3 == 0 %}
+                    <p class="each_animal" style="color:#499E8D">{{ animal['animal_name']}}</p>
+                {% else %}
+                    <p class="each_animal" style="color:#e07a5f">{{ animal['animal_name']}}</p>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-section" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
